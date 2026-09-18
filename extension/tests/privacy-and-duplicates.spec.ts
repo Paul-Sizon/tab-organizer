@@ -28,7 +28,7 @@ test("strips query parameters and fragments before sending tabs to AI", async ({
 
   const popup = await context.newPage();
   await popup.goto(`chrome-extension://${extensionId}/popup.html`);
-  await popup.evaluate((url) => chrome.storage.sync.set({ workerUrl: url }), FAKE_WORKER_URL);
+  await popup.evaluate((url) => chrome.storage.sync.set({ workerUrl: url, minTabsToOrganize: 1 }), FAKE_WORKER_URL);
   await popup.click("#organize-btn");
 
   await expect(popup.locator("#status")).toContainText("Grouped 1 tabs", { timeout: 10_000 });
@@ -68,7 +68,7 @@ test("duplicate cleanup is on by default and keeps query-distinct tabs", async (
 
   const popup = await context.newPage();
   await popup.goto(`chrome-extension://${extensionId}/popup.html`);
-  await popup.evaluate((url) => chrome.storage.sync.set({ workerUrl: url }), FAKE_WORKER_URL);
+  await popup.evaluate((url) => chrome.storage.sync.set({ workerUrl: url, minTabsToOrganize: 1 }), FAKE_WORKER_URL);
 
   await expect(popup.locator("#duplicate-cleanup")).toBeChecked();
   await popup.click("#organize-btn");

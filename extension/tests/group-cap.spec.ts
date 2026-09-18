@@ -54,7 +54,7 @@ test("never creates more than 8 tab groups, overflow folds into Other", async ({
 
   const popup = await context.newPage();
   await popup.goto(`chrome-extension://${extensionId}/popup.html`);
-  await popup.evaluate((url) => chrome.storage.sync.set({ workerUrl: url }), FAKE_WORKER_URL);
+  await popup.evaluate((url) => chrome.storage.sync.set({ workerUrl: url, minTabsToOrganize: 1 }), FAKE_WORKER_URL);
 
   // Popup only ships a handful of default categories, but classifyAndGroup
   // doesn't care what's declared -- it groups by whatever the /group

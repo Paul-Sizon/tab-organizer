@@ -1,4 +1,4 @@
-import { DEFAULT_CATEGORIES, MAX_STORED_CATEGORIES } from "./shared.js";
+import { DEFAULT_CATEGORIES, MAX_STORED_CATEGORIES, DEFAULT_MIN_TABS_TO_ORGANIZE } from "./shared.js";
 
 const categoryListEl = document.getElementById("category-list");
 const addCategoryBtn = document.getElementById("add-category-btn");
@@ -15,6 +15,7 @@ const categoriesTitleEl = document.getElementById("categories-title");
 const statusEl = document.getElementById("status");
 const autoIntervalSelect = document.getElementById("auto-interval");
 const duplicateCleanupCheckbox = document.getElementById("duplicate-cleanup");
+const minTabsInput = document.getElementById("min-tabs");
 const infoBtn = document.getElementById("info-btn");
 const infoModal = document.getElementById("info-modal");
 const closeInfoBtn = document.getElementById("close-info-btn");
@@ -39,13 +40,19 @@ function withViewTransition(fn) {
 }
 
 async function loadSettings() {
-  const stored = await chrome.storage.sync.get(["categories", "autoOrganizeMinutes", "duplicateCleanupEnabled"]);
+  const stored = await chrome.storage.sync.get([
+    "categories",
+    "autoOrganizeMinutes",
+    "duplicateCleanupEnabled",
+    "minTabsToOrganize",
+  ]);
   categories = Array.isArray(stored.categories) && stored.categories.length
     ? stored.categories
     : DEFAULT_CATEGORIES;
   renderCategories();
   autoIntervalSelect.value = String(stored.autoOrganizeMinutes || 0);
   duplicateCleanupCheckbox.checked = stored.duplicateCleanupEnabled !== false;
+  minTabsInput.value = String(stored.minTabsToOrganize || DEFAULT_MIN_TABS_TO_ORGANIZE);
 
   const local = await chrome.storage.local.get(["hasOrganizedOnce", "onboardingDismissed"]);
   hasOrganizedOnce = !!local.hasOrganizedOnce;
@@ -130,6 +137,8 @@ function renderResult(record) {
     : "";
   if (record.error) {
     setStatus(`Error: ${record.error}`);
+  } else if (record.belowMinTabs) {
+    setStatus(`Need at least ${record.belowMinTabs} tabs open to organize.`);
   } else if (record.skipped) {
     setStatus(`${cleanup}Nothing new to organize — already sorted.`);
   } else {
@@ -192,6 +201,12 @@ autoIntervalSelect.addEventListener("change", async () => {
 
 duplicateCleanupCheckbox.addEventListener("change", async () => {
   await chrome.storage.sync.set({ duplicateCleanupEnabled: duplicateCleanupCheckbox.checked });
+});
+
+minTabsInput.addEventListener("change", async () => {
+  const min = Math.max(2, parseInt(minTabsInput.value, 10) || DEFAULT_MIN_TABS_TO_ORGANIZE);
+  minTabsInput.value = String(min);
+  await chrome.storage.sync.set({ minTabsToOrganize: min });
 });
 
 function openInfoModal() {

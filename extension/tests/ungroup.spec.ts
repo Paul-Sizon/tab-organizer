@@ -33,7 +33,7 @@ test("Remove Groups ungroups tabs previously grouped by Organize", async ({
 
   const popup = await context.newPage();
   await popup.goto(`chrome-extension://${extensionId}/popup.html`);
-  await popup.evaluate((url) => chrome.storage.sync.set({ workerUrl: url }), FAKE_WORKER_URL);
+  await popup.evaluate((url) => chrome.storage.sync.set({ workerUrl: url, minTabsToOrganize: 1 }), FAKE_WORKER_URL);
   await popup.click("#organize-btn");
 
   await expect(popup.locator("#status")).toContainText("Grouped 3 tabs into 3 groups", {

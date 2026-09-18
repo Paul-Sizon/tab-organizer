@@ -49,7 +49,7 @@ test("auto-organize alarm suggests categories then groups tabs", async ({
 
   const popup = await context.newPage();
   await popup.goto(`chrome-extension://${extensionId}/popup.html`);
-  await popup.evaluate((url) => chrome.storage.sync.set({ workerUrl: url }), FAKE_WORKER_URL);
+  await popup.evaluate((url) => chrome.storage.sync.set({ workerUrl: url, minTabsToOrganize: 1 }), FAKE_WORKER_URL);
 
   // Fire the auto-organize alarm almost immediately rather than waiting for
   // a real interval — same code path chrome.alarms.onAlarm invokes.

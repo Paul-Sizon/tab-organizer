@@ -126,7 +126,8 @@ label {
   margin-bottom: 4px;
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="number"] {
   width: 100%;
   box-sizing: border-box;
   padding: 6px 8px;
@@ -139,7 +140,8 @@ input[type="text"] {
   transition: border-color var(--dur-fast) var(--ease-out);
 }
 
-input[type="text"]:focus-visible {
+input[type="text"]:focus-visible,
+input[type="number"]:focus-visible {
   outline: none;
   border-color: var(--accent);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
@@ -402,6 +404,7 @@ select {
   font-size: 12px;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
+  margin-bottom: 10px;
   background: var(--bg);
   color: var(--fg);
 }

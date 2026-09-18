@@ -19,7 +19,7 @@ export const DEFAULT_WORKER_URL = "https://tab-organizer-worker.paul-sizon.worke
 // determined attacker who reads this file. If you deploy your own worker,
 // generate your own value (e.g. `openssl rand -hex 32`), set it as the
 // worker's EXTENSION_SHARED_SECRET, and put the same value here.
-export const EXTENSION_SHARED_SECRET = "";
+export const EXTENSION_SHARED_SECRET = "7219b83f1154539888e45aa8ddd132e83f198b36c8591497cf2fc304288f1a82";
 
 const GROUP_COLORS = ["blue", "red", "yellow", "green", "pink", "purple", "cyan", "orange", "grey"];
 
@@ -36,6 +36,10 @@ export const MAX_TOTAL_GROUPS = 8;
 // (even a near-duplicate of an existing one, if the model's naming drifts)
 // gets merged in permanently and the list grows forever.
 export const MAX_STORED_CATEGORIES = 10;
+
+// Below this many open tabs, organizing isn't worth it — nothing to sort.
+// User-adjustable via the popup's settings (stored as `minTabsToOrganize`).
+export const DEFAULT_MIN_TABS_TO_ORGANIZE = 10;
 
 export async function getGroupableTabs() {
   const allTabs = await chrome.tabs.query({ currentWindow: true });

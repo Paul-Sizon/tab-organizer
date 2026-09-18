@@ -1,6 +1,7 @@
 import {
   DEFAULT_CATEGORIES,
   DEFAULT_WORKER_URL,
+  DEFAULT_MIN_TABS_TO_ORGANIZE,
   MAX_STORED_CATEGORIES,
   getGroupableTabs,
   cleanupDuplicateTabs,
@@ -64,6 +65,14 @@ async function resetCategories() {
   return { categories: DEFAULT_CATEGORIES };
 }
 
+// Not worth organizing a handful of tabs — skip below the user's threshold.
+async function belowMinTabs() {
+  const { minTabsToOrganize } = await chrome.storage.sync.get("minTabsToOrganize");
+  const min = minTabsToOrganize > 0 ? minTabsToOrganize : DEFAULT_MIN_TABS_TO_ORGANIZE;
+  const openTabs = await chrome.tabs.query({ currentWindow: true });
+  return openTabs.length < min ? min : 0;
+}
+
 async function getTabsForOrganize() {
   const allTabs = await getGroupableTabs();
   const { duplicateCleanupEnabled } = await chrome.storage.sync.get("duplicateCleanupEnabled");
@@ -72,6 +81,9 @@ async function getTabsForOrganize() {
 }
 
 async function runManual() {
+  const minTabs = await belowMinTabs();
+  if (minTabs) return { tabsGrouped: 0, groupCount: 0, duplicatesRemoved: 0, skipped: true, belowMinTabs: minTabs };
+
   const { workerUrl, categories } = await chrome.storage.sync.get(["workerUrl", "categories"]);
   const url = workerUrl || DEFAULT_WORKER_URL;
   const cats = categories?.length ? categories : DEFAULT_CATEGORIES;
@@ -95,6 +107,11 @@ async function runManual() {
 }
 
 async function runAuto() {
+  const minTabs = await belowMinTabs();
+  if (minTabs) {
+    return { tabsGrouped: 0, groupCount: 0, categoriesUsed: [], duplicatesRemoved: 0, skipped: true, belowMinTabs: minTabs };
+  }
+
   const { workerUrl, categories } = await chrome.storage.sync.get(["workerUrl", "categories"]);
   const url = workerUrl || DEFAULT_WORKER_URL;
 

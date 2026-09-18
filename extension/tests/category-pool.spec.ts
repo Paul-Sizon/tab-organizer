@@ -43,7 +43,7 @@ test("suggested categories stop accumulating once the pool cap is hit", async ({
 
   const popup = await context.newPage();
   await popup.goto(`chrome-extension://${extensionId}/popup.html`);
-  await popup.evaluate((url) => chrome.storage.sync.set({ workerUrl: url }), FAKE_WORKER_URL);
+  await popup.evaluate((url) => chrome.storage.sync.set({ workerUrl: url, minTabsToOrganize: 1 }), FAKE_WORKER_URL);
 
   // 7 default categories already fill most of the MAX_STORED_CATEGORIES=10
   // pool. Each AI run tries to add one brand-new "novel_N" category; after

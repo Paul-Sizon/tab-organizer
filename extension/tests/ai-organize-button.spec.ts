@@ -43,7 +43,7 @@ test("AI Categories button runs suggest-categories immediately, no timer needed"
 
   const popup = await context.newPage();
   await popup.goto(`chrome-extension://${extensionId}/popup.html`);
-  await popup.evaluate((url) => chrome.storage.sync.set({ workerUrl: url }), FAKE_WORKER_URL);
+  await popup.evaluate((url) => chrome.storage.sync.set({ workerUrl: url, minTabsToOrganize: 1 }), FAKE_WORKER_URL);
 
   // No auto-organize interval set — this button must work standalone.
   await popup.click("#ai-organize-btn");
