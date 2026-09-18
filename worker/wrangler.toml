@@ -1,0 +1,8 @@
+name = "tab-organizer-worker"
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+account_id = "410a14da1b482e435fad728a0f7dbe0b"  # paul.sizon@protonmail.com (personal)
+
+[vars]
+# Non-secret: change here + `pnpm run deploy` if OpenRouter renames/retires this slug.
+OPENROUTER_MODEL = "deepseek/deepseek-v4-flash"

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tab Organizer (AI) — Privacy Policy</title>
+  <style>
+    :root { color-scheme: light dark; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+    body { max-width: 720px; margin: 0 auto; padding: 32px 20px 64px; line-height: 1.6; }
+    h1 { line-height: 1.2; }
+    h2 { margin-top: 28px; }
+    .summary { padding: 14px 16px; border: 1px solid #818cf8; border-radius: 10px; }
+    a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <h1>Tab Organizer (AI) Privacy Policy</h1>
+  <p><strong>Effective date:</strong> September 18, 2026</p>
+
+  <p class="summary">Tab Organizer uses tab titles and privacy-safe URLs only to organize your open tabs. It does not read page content, sell personal data, serve ads, or use browsing data for advertising.</p>
+
+  <h2>Information the extension handles</h2>
+  <p>When you choose to organize tabs, the extension reads the title and URL of unpinned HTTP and HTTPS tabs in the current browser window. Before any URL leaves the browser, the extension removes its query parameters, fragment, and embedded credentials. For example, <code>https://example.com/page?token=secret#section</code> is reduced to <code>https://example.com/page</code>.</p>
+  <p>The extension does not send page contents, cookies, form entries, passwords, browsing history outside the current set of tabs, pinned tabs, or internal browser pages.</p>
+
+  <h2>How information is used</h2>
+  <p>Tab titles and sanitized URLs are sent over HTTPS to the Tab Organizer Cloudflare Worker and used only to classify tabs into categories. Classification requests are processed by TypeSafe AI. When you use “Organize with AI,” the same limited data and the names of existing tab groups are also processed through OpenRouter and its selected model provider to suggest useful categories.</p>
+  <p>The developer does not intentionally store tab titles or URLs on the Tab Organizer server. Infrastructure and AI providers may process technical logs and request data according to their own policies.</p>
+
+  <h2>Information stored in Chrome</h2>
+  <p>Categories, scheduling preferences, and duplicate-cleanup preferences are stored with <code>chrome.storage.sync</code>. Organization state, onboarding state, and the most recent run status are stored with <code>chrome.storage.local</code>. Chrome may sync compatible settings through your Google account according to Google's policies.</p>
+
+  <h2>Sharing, advertising, and human access</h2>
+  <p>Information is transferred only to service providers needed to provide tab organization: Cloudflare, TypeSafe AI, OpenRouter, and OpenRouter's selected inference provider. The developer does not sell user data, use it for personalized advertising, use it to determine creditworthiness, or permit humans to read it except when required for security, legal compliance, or support specifically requested by the user.</p>
+
+  <h2>Your choices and deletion</h2>
+  <p>AI processing occurs when you click an organize button or when a timer you explicitly enabled runs. You can disable scheduled organization and duplicate cleanup in the extension popup. Removing the extension deletes its local data from that Chrome profile. Synced settings can also be cleared through Chrome or your Google account.</p>
+
+  <h2>Security</h2>
+  <p>All remote requests use HTTPS. The extension removes query parameters and fragments before transmission and limits server access to the single production backend declared in its manifest.</p>
+
+  <h2>Chrome Web Store Limited Use</h2>
+  <p>The use of information received from Chrome APIs adheres to the Chrome Web Store User Data Policy, including the Limited Use requirements. Data is used only to provide and improve the extension's user-facing tab-management features.</p>
+
+  <h2>Service providers</h2>
+  <ul>
+    <li><a href="https://www.cloudflare.com/privacypolicy/">Cloudflare Privacy Policy</a></li>
+    <li><a href="https://typesafe.ai/legal/privacy-policy">TypeSafe AI Privacy Policy</a></li>
+    <li><a href="https://openrouter.ai/privacy">OpenRouter Privacy Policy</a></li>
+  </ul>
+
+  <h2>Contact</h2>
+  <p>For privacy questions or deletion requests, open an issue at <a href="https://github.com/Paul-Sizon/tab-organizer/issues">github.com/Paul-Sizon/tab-organizer/issues</a>.</p>
+</body>
+</html>

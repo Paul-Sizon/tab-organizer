@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Tab Organizer</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="header-row">
+    <h1>Tab Organizer</h1>
+    <button id="info-btn" class="icon-btn" aria-label="How this works" title="How this works">?</button>
+  </div>
+
+  <div id="onboarding-hint" class="hint hidden">
+    <span>AI groups your tabs using their titles and privacy-safe URLs. Page content and URL parameters are never sent.</span>
+    <button id="dismiss-hint-btn" class="hint-dismiss" aria-label="Dismiss">✕</button>
+  </div>
+
+  <section id="categories-section">
+    <div class="section-header">
+      <span id="categories-title">Categories</span>
+      <div class="header-actions">
+        <button id="reset-categories-btn" class="small-btn">Reset</button>
+        <button id="add-category-btn" class="small-btn">+ Add</button>
+      </div>
+    </div>
+    <ul id="category-list"></ul>
+    <div id="add-category-form" class="hidden">
+      <input id="new-category-label" type="text" placeholder="Label (e.g. Travel)" />
+      <input id="new-category-desc" type="text" placeholder="Description (optional)" />
+      <div class="form-actions">
+        <button id="save-category-btn" class="small-btn primary">Save</button>
+        <button id="cancel-category-btn" class="small-btn">Cancel</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="actions">
+    <button id="organize-btn" class="slot-secondary secondary-btn">Organize Tabs Now</button>
+    <button id="ai-organize-btn" class="slot-primary primary-btn">✨ Organize with AI</button>
+    <button id="ungroup-btn" class="slot-secondary secondary-btn">Remove Groups</button>
+  </div>
+  <div id="status" role="status"></div>
+
+  <section id="auto-section">
+    <label class="checkbox-row" for="duplicate-cleanup">
+      <input id="duplicate-cleanup" type="checkbox" checked />
+      <span>
+        <strong>Remove duplicate tabs</strong>
+        <small>Before organizing · keeps the active tab</small>
+      </span>
+    </label>
+    <label for="auto-interval">Auto-organize on a timer</label>
+    <select id="auto-interval">
+      <option value="0">Off — manual only</option>
+      <option value="5">Every 5 minutes</option>
+      <option value="15">Every 15 minutes</option>
+      <option value="30">Every 30 minutes</option>
+      <option value="60">Every hour</option>
+    </select>
+  </section>
+
+  <div id="info-modal" class="modal-overlay hidden">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="info-modal-title">
+      <h2 id="info-modal-title">How Organize works</h2>
+      <p><strong>✨ Organize with AI</strong> looks at your open tabs, invents categories that actually fit them, then groups your tabs by those categories.</p>
+      <p><strong>Organize Tabs Now</strong> reuses your current category list — no AI round trip, so it's instant. Good for a quick re-sort once AI has already set things up.</p>
+      <p>Already-sorted tabs are left alone — only new or changed tabs get reclassified.</p>
+      <p>For privacy, AI receives only each tab's title, domain, and path — URL query parameters and fragments are removed first.</p>
+      <p><a href="privacy.html" target="_blank" rel="noopener">Privacy policy</a></p>
+      <button id="close-info-btn" class="small-btn primary">Got it</button>
+    </div>
+  </div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

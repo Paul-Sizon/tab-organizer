@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "Tab Organizer (AI)",
+  "version": "1.0.0",
+  "description": "Organize open tabs into smart Chrome groups with AI, automatic duplicate cleanup, and optional scheduled sorting.",
+  "homepage_url": "https://github.com/Paul-Sizon/tab-organizer",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "permissions": ["tabs", "tabGroups", "storage", "alarms"],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "host_permissions": [
+    "https://tab-organizer-worker.paul-sizon.workers.dev/*"
+  ],
+  "action": {
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    },
+    "default_popup": "popup.html",
+    "default_title": "Organize Tabs"
+  }
+}
