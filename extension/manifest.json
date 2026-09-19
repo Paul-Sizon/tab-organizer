@@ -27,5 +27,14 @@
     },
     "default_popup": "popup.html",
     "default_title": "Organize Tabs"
+  },
+  "commands": {
+    "organize-now": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+K",
+        "mac": "Command+Shift+K"
+      },
+      "description": "Organize tabs now"
+    }
   }
 }

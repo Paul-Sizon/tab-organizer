@@ -213,5 +213,9 @@ chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
   }
 });
 
+chrome.commands.onCommand.addListener((command) => {
+  if (command === "organize-now") runOrganize("manual");
+});
+
 chrome.runtime.onStartup.addListener(restoreAlarmFromStorage);
 chrome.runtime.onInstalled.addListener(restoreAlarmFromStorage);
